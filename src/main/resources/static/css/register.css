@@ -1,0 +1,59 @@
+body {
+    background-color: #f7f8fc;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* --- Card ajustada --- */
+.card {
+    background: #ffffff;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+    padding: 25px 30px;
+    max-width: 380px; /* 🔹 antes era 430px */
+    margin: 40px auto; /* centra con menos espacio */
+}
+
+/* --- Botón cálido --- */
+.register-btn {
+    background: linear-gradient(90deg, #ff6b4a, #ff3d6a);
+    border: none;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 3px 6px rgba(255, 80, 80, 0.25);
+}
+
+.register-btn:hover {
+    background: linear-gradient(90deg, #ff3d6a, #ff6b4a);
+    box-shadow: 0 4px 10px rgba(255, 80, 80, 0.35);
+    transform: scale(1.02);
+}
+
+/* --- Inputs --- */
+.form-control:focus {
+    border-color: #ff4b5c;
+    box-shadow: 0 0 0 0.15rem rgba(255, 99, 132, 0.25);
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: #000;
+    color: white;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* --- Enlaces --- */
+.link-primary {
+    color: #007bff !important;
+}
+.link-primary:hover {
+    color: #0056b3 !important;
+}

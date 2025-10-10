@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Panadería Olcese · Productos</title>
+  <link rel="stylesheet" th:href="@{/css/base.css}"/>
+</head>
+<body>
+<header>
+  <h1>Panadería Olcese</h1>
+  <nav>
+    <a href="/" >Inicio</a> · <a href="/v3/api-docs">OpenAPI</a> · <a href="/swagger-ui/index.html">Swagger UI</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Catálogo</h2>
+  <table>
+    <thead><tr><th>ID</th><th>SKU</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Activo</th></tr></thead>
+    <tbody>
+    <tr th:each="p : ${productos}">
+      <td th:text="${p.id()}"></td>
+      <td th:text="${p.sku()}"></td>
+      <td th:text="${p.nombre()}"></td>
+      <td th:text="${p.categoria()}"></td>
+      <td th:text="${p.precio()}"></td>
+      <td th:text="${p.activo()}"></td>
+    </tr>
+    </tbody>
+  </table>
+</main>
+
+<footer>
+  <small>© 2025 Cadena de Bodegas y Panadería Olcese · Demo académico</small>
+</footer>
+</body>
+</html>

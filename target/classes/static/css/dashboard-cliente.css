@@ -1,0 +1,120 @@
+body {
+    background-color: #fffaf6;
+    font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+    background-color: #2c2c2c;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.logo-nav {
+    height: 45px;
+    width: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 3px;
+}
+
+/* Hero */
+.hero {
+    position: relative;
+    background: url("../images/banner-principal.png") center/cover no-repeat;
+    height: 80vh;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4); /* oscurece la imagen */
+    z-index: 1;
+}
+
+/* 🔹 Para asegurar que el contenido esté por encima del overlay */
+.hero * {
+    position: relative;
+    z-index: 2;
+}
+
+/* ====== BOTÓN VER CATÁLOGO COMPLETO ====== */
+.catalogo-btn {
+    background-color: #b91c1c;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 12px 28px;
+    border-radius: 6px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.catalogo-btn:hover {
+    background-color: #8b1313;
+    transform: translateY(-2px);
+}
+
+.catalogo-btn:active {
+    background-color: #6d0f0f;
+    transform: scale(0.97);
+}
+
+/* Sección */
+.section-title {
+    font-weight: bold;
+    color: #2e2e2e;
+}
+
+/* Footer */
+footer {
+    background-color: #1e1e1e;
+    color: #ddd;
+    padding: 40px 0;
+    text-align: center;
+}
+
+footer a {
+    color: #f8d37d;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+section img {
+    max-width: 95%;       /* 🔹 mantiene buen tamaño sin pasarse */
+    height: auto;
+    max-height: 320px;    /* 🔹 más alto para equilibrar con el texto */
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+.quienes-somos .row {
+    align-items: center;  /* centra verticalmente texto y fotos */
+    margin-bottom: 60px;  /* más espacio entre filas */
+    gap: 50px;            /* 🔹 equilibrio entre texto e imagen */
+}
+
+.quienes-somos p {
+    line-height: 1.7;     /* 🔹 mejor legibilidad */
+    text-align: justify;
+    margin: 10px 30px;    /* 🔹 da aire alrededor */
+    color: #333;
+    font-size: 1.05rem;   /* 🔹 texto un poco más grande y limpio */
+}
+
+.quienes-somos {
+    padding: 50px 120px;  /* 🔹 centrado visual y aire lateral */
+}

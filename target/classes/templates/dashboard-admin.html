@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olcese | Panel Administrador</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard-admin.css">
+</head>
+<body>
+
+<!-- 🧭 NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-fluid px-5">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="/images/logo-olcese.png" alt="Logo" class="logo-nav me-2">
+            <span class="fw-bold text-light fs-5">Olcese</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav align-items-center" id="nav-links">
+                <!-- Render dinámico por JS -->
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- 🎛️ DASHBOARD ADMIN -->
+<header class="hero-admin d-flex flex-column justify-content-center align-items-center text-center text-light">
+    <h1 class="display-5 fw-bold">Panel de Administración</h1>
+    <p class="lead">Gestiona los recursos de Panadería Olcese de manera rápida y segura.</p>
+</header>
+
+<!-- ⚙️ SECCIONES DEL PANEL -->
+<section class="container my-5 pt-5">
+    <h2 class="section-title text-center mb-4 fw-bold">Gestión general</h2>
+
+    <div class="row g-4 text-center">
+        <div class="col-md-4">
+            <div class="admin-card shadow-sm">
+                <i class="bi bi-box-seam fs-1 text-danger mb-3"></i>
+                <h5>Productos</h5>
+                <p>Administra los productos del catálogo, precios y stock disponible.</p>
+                <a href="#" class="btn btn-outline-danger btn-sm mt-2">Gestionar</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="admin-card shadow-sm">
+                <i class="bi bi-geo-alt fs-1 text-danger mb-3"></i>
+                <h5>Sucursales</h5>
+                <p>Controla la información de las sucursales y personal asignado.</p>
+                <a href="#" class="btn btn-outline-danger btn-sm mt-2">Gestionar</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="admin-card shadow-sm">
+                <i class="bi bi-graph-up fs-1 text-danger mb-3"></i>
+                <h5>Reportes</h5>
+                <p>Visualiza los reportes de ventas, rendimiento y estadísticas clave.</p>
+                <a href="#" class="btn btn-outline-danger btn-sm mt-2">Ver reportes</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 🦶 FOOTER -->
+<footer>
+    <div class="container">
+        <div class="row text-start">
+            <div class="col-md-4 mb-3">
+                <h5>Panadería Olcese</h5>
+                <p>Gestión interna del sistema administrativo. Acceso restringido.</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Soporte</h5>
+                <p>Email: soporte@olcese.com</p>
+                <p>Teléfono: +51 999 888 777</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Red interna</h5>
+                <a href="#">Portal TI</a> | <a href="#">Intranet</a>
+            </div>
+        </div>
+        <hr>
+        <p>© 2025 Panadería Olcese - Panel Administrativo.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/dashboard-admin.js"></script>
+</body>
+</html>
