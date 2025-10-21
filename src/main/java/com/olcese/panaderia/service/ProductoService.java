@@ -29,19 +29,21 @@ public class ProductoService {
         this.sucursalRepository = sucursalRepository;
     }
 
-    // Listar todos
+    // 🔹 Listar todos
     public List<Producto> listar() {
         return productoRepository.findAll();
     }
 
-    // Crear nuevo producto
+    // 🔹 Buscar por ID
+    public Producto buscarPorId(Long id) {
+        return productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + id));
+    }
+
+    // 🔹 Crear nuevo producto
     public Producto crear(ProductoRequest request) {
         if (request.categoriaId() == null || request.sucursalId() == null) {
             throw new IllegalArgumentException("Debe especificar IDs válidos de categoría y sucursal");
-        }
-
-        if (productoRepository.existsBySku(request.sku())) {
-            throw new RuntimeException("Ya existe un producto con el SKU: " + request.sku());
         }
 
         Categoria categoria = categoriaRepository.findById(request.categoriaId())
@@ -51,7 +53,6 @@ public class ProductoService {
                 .orElseThrow(() -> new RuntimeException("Sucursal no encontrada con ID: " + request.sucursalId()));
 
         Producto producto = Producto.builder()
-                .sku(request.sku().trim())
                 .nombre(request.nombre().trim())
                 .categoria(categoria)
                 .sucursal(sucursal)
@@ -59,6 +60,40 @@ public class ProductoService {
                 .activo(request.activo())
                 .build();
 
+        return productoRepository.save(producto);
+    }
+
+    // 🔹 Actualizar producto existente
+    public Producto actualizar(Long id, ProductoRequest request) {
+        Producto producto = buscarPorId(id);
+
+        Categoria categoria = categoriaRepository.findById(request.categoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada con ID: " + request.categoriaId()));
+
+        Sucursal sucursal = sucursalRepository.findById(request.sucursalId())
+                .orElseThrow(() -> new RuntimeException("Sucursal no encontrada con ID: " + request.sucursalId()));
+
+        producto.setNombre(request.nombre().trim());
+        producto.setCategoria(categoria);
+        producto.setSucursal(sucursal);
+        producto.setPrecio(BigDecimal.valueOf(request.precio()));
+        producto.setActivo(request.activo());
+
+        return productoRepository.save(producto);
+    }
+
+    // 🔹 Eliminar producto
+    public void eliminar(Long id) {
+        if (!productoRepository.existsById(id)) {
+            throw new RuntimeException("Producto no encontrado con ID: " + id);
+        }
+        productoRepository.deleteById(id);
+    }
+
+    // 🔹 Cambiar estado activo/inactivo
+    public Producto cambiarEstado(Long id) {
+        Producto producto = buscarPorId(id);
+        producto.setActivo(!producto.getActivo());
         return productoRepository.save(producto);
     }
 }

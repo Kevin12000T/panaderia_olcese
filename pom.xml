@@ -83,6 +83,20 @@
       <scope>runtime</scope>
     </dependency>
 
+    <!-- Generar PDF desde HTML -->
+    <dependency>
+      <groupId>com.openhtmltopdf</groupId>
+      <artifactId>openhtmltopdf-pdfbox</artifactId>
+      <version>1.0.10</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.openhtmltopdf</groupId>
+      <artifactId>openhtmltopdf-slf4j</artifactId>
+      <version>1.0.10</version>
+    </dependency>
+
+
   </dependencies>
   <build>
     <plugins>
@@ -99,8 +113,12 @@
           <source>${java.version}</source>
           <target>${java.version}</target>
           <release>${java.version}</release>
+          <compilerArgs>
+            <arg>-parameters</arg>
+          </compilerArgs>
         </configuration>
       </plugin>
+
 
     </plugins>
   </build>

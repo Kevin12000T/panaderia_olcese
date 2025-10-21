@@ -60,6 +60,7 @@ public class AuthServiceImpl implements AuthService {
                 accessToken,
                 refreshToken,
                 expiresIn,
+                usuario.getId(),
                 usuario.getEmail(),
                 usuario.getNombre(),
                 usuario.getApellido(),

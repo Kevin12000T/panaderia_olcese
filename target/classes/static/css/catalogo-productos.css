@@ -1,0 +1,88 @@
+body {
+    background: linear-gradient(180deg, #fffaf3 0%, #f8f9fa 100%);
+    font-family: "Poppins", sans-serif;
+}
+
+/* 🔹 Navbar */
+.navbar {
+    background-color: #212529 !important;
+}
+
+.navbar .nav-link {
+    color: #f8f9fa;
+    transition: color 0.2s ease-in-out;
+}
+
+.navbar .nav-link:hover {
+    color: #ffc107;
+}
+
+/* 🔹 Botón de carrito */
+.btn-carrito {
+    background: linear-gradient(90deg, #e53935, #ff7043);
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-carrito:hover {
+    background: linear-gradient(90deg, #d32f2f, #ff5722);
+    transform: scale(1.05);
+    color: #fff;
+}
+
+/* 🔹 Tarjetas de productos */
+.card {
+    border-radius: 1rem;
+    border: 1px solid #f1e2b8;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: #b71c1c;
+    font-weight: 600;
+}
+
+.card-text strong {
+    color: #444;
+}
+
+.card-text.text-success {
+    color: #d32f2f !important;
+    font-weight: bold;
+}
+
+/* 🔹 Botón de agregar al carrito */
+.btn-outline-primary {
+    border-radius: 8px;
+    border-color: #d32f2f;
+    color: #d32f2f;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background: linear-gradient(90deg, #e53935, #ff7043);
+    color: #fff;
+    border: none;
+    transform: scale(1.03);
+}
+
+/* 🔹 Alertas */
+.alert {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* 🔹 Footer */
+footer {
+    background-color: #212529;
+    font-size: 0.9rem;
+    color: #aaa;
+    letter-spacing: 0.3px;
+}

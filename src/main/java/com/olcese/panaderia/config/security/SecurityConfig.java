@@ -26,22 +26,49 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // ========== RUTAS PÚBLICAS ==========
                         .requestMatchers(
                                 "/",
+                                "/inicio",
                                 "/login",
                                 "/register",
+                                "/catalogo",
+                                "/reservas",
+                                "/carrito",
+                                "/boleta/**",
                                 "/public/**",
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
-                                "/**.html"        // ← ojo, sin ** al final
+                                "/**.html"
                         ).permitAll()
+
+                        // ========== CATÁLOGO PÚBLICO ==========
+                        // Cualquiera puede ver productos y sucursales
+                        .requestMatchers(
+                                "/api/catalogo/**",
+                                "/api/sucursales/**"
+                        ).permitAll()
+
+                        // ========== RESERVAS (USUARIOS AUTENTICADOS) ==========
+                        // Clientes pueden hacer y ver sus reservas
+                        .requestMatchers(
+                                "/api/reservas/**",
+                                "/api/carrito/**",
+                                "/api/pedidos/**"
+                        ).authenticated()
+
+                        // ========== API REST (AUTENTICADO) ==========
                         .requestMatchers("/api/**").authenticated()
+
+                        // ========== TODO LO DEMÁS ==========
                         .anyRequest().permitAll()
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -52,7 +79,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+            throws Exception {
         return config.getAuthenticationManager();
     }
 }

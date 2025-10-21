@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!token || isTokenExpirado(token)) {
         navLinks.innerHTML = `
             <li class="nav-item"><a class="nav-link text-light" href="/">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link text-light" href="/#">Productos</a></li>
-            <li class="nav-item"><a class="nav-link text-light" href="/#">Sucursales</a></li>
-            <li class="nav-item"><a class="nav-link text-light" href="/#">Pedidos</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/dashboard-cliente/productos">Productos</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/dashboard-cliente/reservas">Sucursales</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/dashboard-cliente/carrito">Carrito</a></li>
             <li class="nav-item ms-2"><a href="/login" class="btn btn-outline-light btn-sm">Iniciar sesión</a></li>
             <li class="nav-item ms-2"><a href="/register" class="btn btn-danger btn-sm">Registrarse</a></li>
         `;
@@ -25,9 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Si está logeado, muestra su nombre completo
     navLinks.innerHTML = `
         <li class="nav-item"><a class="nav-link text-light" href="/">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="/#">Productos</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="/#">Sucursales</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="/#">Pedidos</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="/dashboard-cliente/productos">Productos</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="/dashboard-cliente/reservas">Sucursales</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="/dashboard-cliente/carrito">Carrito</a></li>
         <li class="nav-item dropdown ms-3">
             <a class="nav-link dropdown-toggle text-light d-flex align-items-center" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-circle me-2 fs-5"></i> ${nombre} ${apellido}

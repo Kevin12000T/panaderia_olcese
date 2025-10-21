@@ -2,7 +2,6 @@ package com.olcese.panaderia.model.dto;
 
 public record ProductoResponse(
         Long id,
-        String sku,
         String nombre,
         String categoria,
         String sucursal,

@@ -16,9 +16,6 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 40)
-    private String sku;
-
     @Column(nullable = false, length = 120)
     private String nombre;
 

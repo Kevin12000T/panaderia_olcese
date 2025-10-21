@@ -1,0 +1,54 @@
+body {
+    background: linear-gradient(180deg, #fffaf3 0%, #f8f9fa 100%);
+    font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+    background-color: #212529 !important;
+}
+
+.navbar .nav-link {
+    color: #f8f9fa;
+    transition: color 0.2s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #ffc107;
+}
+
+.reserva-card {
+    border-radius: 1rem;
+    border: 1px solid #f1e2b8;
+    background: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.reserva-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.btn-olcese {
+    background: linear-gradient(90deg, #e53935, #ff7043); /* 🔥 medio rojo */
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-olcese:hover {
+    background: linear-gradient(90deg, #d32f2f, #ff5722);
+    transform: scale(1.05);
+}
+
+#total {
+    background-color: #fff8e1;
+    color: #b36b00;
+    border: 1px solid #ffeb99;
+}
+
+footer {
+    font-size: 0.9rem;
+    color: #aaa;
+    letter-spacing: 0.3px;
+}

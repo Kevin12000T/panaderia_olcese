@@ -61,13 +61,14 @@ public class AuthController {
                     null,
                     null,
                     null,
+                    null,
                     null
             );
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(
-                    new LoginResponse(null, null, 0L, null, null, null,null  )
+                    new LoginResponse(null, null, 0L, null, null, null,null ,null )
             );
         }
     }

@@ -4,10 +4,6 @@ import jakarta.validation.constraints.*;
 
 public record ProductoRequest(
 
-        @NotBlank(message = "El SKU es obligatorio")
-        @Size(max = 40)
-        String sku,
-
         @NotBlank(message = "El nombre es obligatorio")
         @Size(max = 120)
         String nombre,

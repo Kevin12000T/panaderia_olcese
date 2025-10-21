@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Boleta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Thymeleaf solo para pasar el pedidoId desde el controlador -->
+  <meta name="pedidoId" th:content="${pedidoId}">
+  <style>
+    :root{ --negro:#222; --gris:#777; --borde:#e5e7eb; }
+    body{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--negro); margin:0; }
+    .wrap{ max-width:820px; margin:24px auto; padding:24px; border:1px solid var(--borde); border-radius:12px; }
+    h1{ font-size:22px; margin:0 0 8px; }
+    .muted{ color:var(--gris); font-size:12px; }
+    .fila{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
+    .box{ padding:12px 0; }
+    table{ width:100%; border-collapse:collapse; margin-top:12px; }
+    th, td{ padding:10px 8px; border-bottom:1px solid var(--borde); font-size:14px; text-align:left; }
+    th{ background:#fafafa; }
+    tfoot td{ font-weight:700; }
+    .right{ text-align:right; }
+    .actions{ margin-top:16px; display:flex; gap:8px; }
+    .btn{ border:1px solid var(--borde); background:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; }
+    .btn-primary{ background:#111827; color:#fff; border-color:#111827; }
+    @media print{
+      .actions{ display:none; }
+      .wrap{ border:none; margin:0; border-radius:0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="fila">
+      <div class="box">
+        <h1>Panadería Olcese</h1>
+        <div class="muted">RUC 12345678901 · Av. Los Pinos 456, Lima</div>
+        <div class="muted">Tel: +51 999 888 777 · contacto@olcese.com</div>
+      </div>
+      <div class="box" style="text-align:right">
+        <div><strong id="boleta-numero">BOL-000000</strong></div>
+        <div class="muted">Emitida: <span id="boleta-fecha">--/--/----</span></div>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--borde); margin:12px 0">
+
+    <div class="fila">
+      <div class="box">
+        <strong>Cliente</strong><br>
+        <span id="cliente-nombre">-</span><br>
+        <span class="muted" id="cliente-email">-</span>
+      </div>
+      <div class="box" style="text-align:right">
+        <strong>Forma de pago</strong><br>
+        <span class="muted">Pendiente / Mostrador</span>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Sucursal</th>
+          <th class="right">Precio</th>
+          <th class="right">Cant.</th>
+          <th class="right">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-items">
+        <!-- filas dinámicas -->
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" class="right">Total</td>
+          <td class="right" id="boleta-total">0.00</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="actions">
+      <button class="btn" onclick="window.history.back()">Volver</button>
+      <button class="btn btn-primary" onclick="window.print()">Imprimir</button>
+    </div>
+
+    <div class="muted" style="margin-top:12px">
+      * Documento no válido como comprobante fiscal SUNAT (demo). Para boleta legal, integra serie y numeración autorizada.
+    </div>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    // 1) token (ajusta el nombre según cómo lo guardas)
+    const token = localStorage.getItem("authToken") || localStorage.getItem("token");
+
+    // Si tu boleta es pública tras login de sesión y no JWT, puedes quitar este bloque
+    if (!token) {
+      // si usas sesión de Spring Security, puedes permitir sin JWT
+      console.warn("Sin token en localStorage; intentando sin Authorization header");
+    }
+
+    // 2) pedidoId: primero meta, sino lo saco de la URL /boleta/{id}
+    const pedidoId = document.querySelector('meta[name="pedidoId"]')?.content
+                   || location.pathname.split("/").pop();
+
+    try {
+      const resp = await fetch(`/api/pedidos/${pedidoId}`, {
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const p = await resp.json();
+
+      // 3) Número, título y fecha
+      const numero = `BOL-${String(p.id).padStart(6, "0")}`;
+      document.getElementById("boleta-numero").textContent = numero;
+      document.title = `Boleta ${numero}`;
+
+      const f = p.creadoEn ? new Date(p.creadoEn) : null;
+      if (f) {
+        const fmt = new Intl.DateTimeFormat("es-PE", {
+          day:"2-digit", month:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit"
+        }).format(f);
+        document.getElementById("boleta-fecha").textContent = fmt;
+      }
+
+      // 4) Cliente
+      const nom = (p.usuario?.nombre ?? "").trim();
+      const ape = (p.usuario?.apellido ?? "").trim();
+      document.getElementById("cliente-nombre").textContent = `${nom} ${ape}`.trim() || "-";
+      document.getElementById("cliente-email").textContent  = p.usuario?.email ?? "-";
+
+      // 5) Items
+      const tbody = document.getElementById("tabla-items");
+      tbody.innerHTML = "";
+      (p.items || []).forEach(it => {
+        const tr = document.createElement("tr");
+        const prod = it.producto?.nombre ?? "-";
+        const suc  = it.producto?.sucursal?.nombre ?? "";
+        const precio = Number(it.precioUnitario ?? 0);
+        const cant   = Number(it.cantidad ?? 0);
+        const sub    = Number(it.subtotal ?? precio * cant);
+
+        tr.innerHTML = `
+          <td>${prod}</td>
+          <td>${suc}</td>
+          <td class="right">${precio.toFixed(2)}</td>
+          <td class="right">${cant}</td>
+          <td class="right">${sub.toFixed(2)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // 6) Total
+      document.getElementById("boleta-total").textContent = Number(p.total ?? 0).toFixed(2);
+
+    } catch (err) {
+      console.error("Error cargando boleta:", err);
+      alert("No se pudo cargar la boleta.");
+    }
+  });
+  </script>
+</body>
+</html>

@@ -36,6 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("apellido", data.apellido);
             localStorage.setItem("rol", data.rol);
 
+
+            // ⚙️ Guardar el ID del usuario (nuevo)
+            if (data.id) {
+                localStorage.setItem("userId", data.id);
+            } else if (data.usuario && data.usuario.id) {
+                localStorage.setItem("userId", data.usuario.id);
+            }
+
             // Mostrar bienvenida
             alert(`Bienvenido ${data.nombre} ${data.apellido}`);
 
@@ -44,9 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = "/dashboard-admin";
             } else if (data.rol === "CLIENTE") {
                 window.location.href = "/dashboard-cliente";
-            } else {
-                alert("Rol desconocido. Contacta con soporte técnico.");
             }
+
         } catch (error) {
             console.error("❌ Error en login:", error);
             alert(error.message || "Error de conexión con el servidor.");
